@@ -1,9 +1,9 @@
 > Command-line string manipulation helpers.
 
-This library provides string helpers for building command-line output. Whith this library you can
+This library provides string helpers for building command-line output. With this library, you can
 
 * style string using ANSI codes,
-* modify and transform strings with ANSI codes and unicode characters.
+* modify and transform strings with ANSI codes and Unicode characters.
 
 ## Example
 
