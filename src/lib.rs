@@ -202,7 +202,7 @@ pub fn size_str<S: Into<String>>(txt: S) -> usize {
     unicode_width::UnicodeWidthStr::width(clean_str(txt).as_str())
 }
 
-pub fn pad_str<S: Into<String>>(txt: S, width: usize, align: &TextAlign, chr: S) -> String {
+pub fn pad_str<S0: Into<String>, S1: Into<String>>(txt: S0, width: usize, align: &TextAlign, chr: S1) -> String {
     let txt = txt.into();
     let chr = chr.into();
 
@@ -230,7 +230,7 @@ pub fn pad_str<S: Into<String>>(txt: S, width: usize, align: &TextAlign, chr: S)
     result
 }
 
-pub fn trucate_str<S: Into<String>>(txt: S, width: usize, align: &TextAlign, tail: S) -> String {
+pub fn trucate_str<S0: Into<String>, S1: Into<String>>(txt: S0, width: usize, align: &TextAlign, tail: S1) -> String {
     let txt = txt.into();
     let tail = tail.into();
 
@@ -337,6 +337,7 @@ mod tests {
 
     #[test]
     fn applies_ansi_style() {
+        style_str("foo", &TextStyle::Bold);
         assert_eq!(
             style_str("foo", &TextStyle::Bold),
             format!("{}{}{}", "\x1B[1m", "foo", "\x1B[22m"),
@@ -409,9 +410,9 @@ mod tests {
     #[test]
     fn repairs_multiline_ansi_str() {
         assert_eq!(repaire_str(&vec![
-            "This is \x1B[31mlong".to_string(),
-            "string 利干 sample".to_string(),
-            "this is 利干 sample\x1B[39m long code".to_string(),
+            "This is \x1B[31mlong",
+            "string 利干 sample",
+            "this is 利干 sample\x1B[39m long code",
         ].join("\n")), vec![
             "This is \x1B[31mlong\x1B[39m",
             "\x1B[31mstring 利干 sample\x1B[39m",
